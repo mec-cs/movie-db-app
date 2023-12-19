@@ -33,7 +33,7 @@ class CustomRecyclerViewAdapter(private val context: Context):RecyclerView.Adapt
         val item = recyclerItemValues[position]
         myRecyclerViewItemHolder.tvItemMovieName.text = item.title
 
-        var imgUrlAddress = item.posterImgLink
+        val imgUrlAddress = item.posterImgLink
         Log.d("IMG URL", imgUrlAddress)
 
         /*
