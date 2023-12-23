@@ -15,7 +15,8 @@ import com.movie_application.apiPackage.ApiClient
 import com.movie_application.database.Movie
 import com.movie_application.databinding.ActivityMainBinding
 import com.movie_application.service.MovieService
-import com.movie_application.recyclerView.MovieRecyclerViewAdapter
+import com.movie_application.adapter.MovieRecyclerViewAdapter
+import com.movie_application.database.FavoriteMovieSys
 import com.movie_application.soundPlayer.SoundPlayer
 import com.squareup.picasso.Picasso
 import retrofit2.Call
@@ -61,12 +62,20 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
 
         Log.d("JSON_ARRAY_PARSE", "After Request")
 
+<<<<<<< HEAD
 
         binding.fabRandom.setOnClickListener {
             // in this line get a random movie from database and insert it into the createDialog function
             createRandomMovieDialog()
             randomMovieDialog.show()
         }
+=======
+        binding.fabFavs.setOnClickListener {
+            FavoriteMovieSys.favMovieList.addAll(movieList)
+            startActivity(Intent(this, FavoriteActivity::class.java))
+        }
+
+>>>>>>> d80c3b5653c10c50a3ef292bc923c7fd103ac03f
 
         /*
 

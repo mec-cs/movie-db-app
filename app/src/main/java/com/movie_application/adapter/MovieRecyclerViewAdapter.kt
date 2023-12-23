@@ -1,4 +1,4 @@
-package com.movie_application.recyclerView
+package com.movie_application.adapter
 
 import android.content.Context
 import android.util.Log
@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.movie_application.database.Movie
 import com.movie_application.R
 import com.squareup.picasso.Picasso
