@@ -1,4 +1,4 @@
-package com.movie_application.recyclerView
+package com.movie_application.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

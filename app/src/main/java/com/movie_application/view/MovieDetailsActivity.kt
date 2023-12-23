@@ -12,7 +12,7 @@ import com.movie_application.comments.CommentSys
 import com.movie_application.comments.CommentViewModel
 import com.movie_application.database.Movie
 import com.movie_application.R
-import com.movie_application.recyclerView.CommentRecyclerViewAdapter
+import com.movie_application.adapter.CommentRecyclerViewAdapter
 import com.movie_application.databinding.ActivityMovieDetailsBinding
 
 
