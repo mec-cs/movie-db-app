@@ -11,6 +11,8 @@ import com.movie_application.comments.Comment
 import com.movie_application.comments.CommentSys
 import com.movie_application.comments.CommentViewModel
 import com.movie_application.databinding.FragmentCommentBinding
+import com.movie_application.recyclerView.CommentRecyclerViewAdapter
+import com.movie_application.recyclerView.MovieRecyclerViewAdapter
 
 class CommentFragment : Fragment() {
     private lateinit var binding: FragmentCommentBinding
@@ -34,6 +36,10 @@ class CommentFragment : Fragment() {
                 Toast.makeText(context, "Enter a comment!!!", Toast.LENGTH_SHORT).show()
             }
         }
+
+
+
+
     }
 
 

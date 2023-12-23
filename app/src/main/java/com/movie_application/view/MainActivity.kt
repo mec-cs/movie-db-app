@@ -17,9 +17,11 @@ import com.movie_application.databinding.ActivityMainBinding
 import com.movie_application.service.MovieService
 import com.movie_application.recyclerView.MovieRecyclerViewAdapter
 import com.movie_application.soundPlayer.SoundPlayer
+import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapterInterface {
     lateinit var movieService: MovieService
@@ -60,7 +62,11 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
         Log.d("JSON_ARRAY_PARSE", "After Request")
 
 
-
+        binding.fabRandom.setOnClickListener {
+            // in this line get a random movie from database and insert it into the createDialog function
+            createRandomMovieDialog()
+            randomMovieDialog.show()
+        }
 
         /*
 
@@ -92,7 +98,9 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
     }
 
     @SuppressLint("SetTextI18n")
-    fun createRandomMovieDialog(movie: Movie) {
+    fun createRandomMovieDialog() {
+        var movie: Movie
+        movie= movieList[Random.nextInt(0,movieList.size+1)]
         randomMovieDialog = Dialog(this)
         randomMovieDialog.setContentView(R.layout.random_movie_dialog)
 
@@ -103,7 +111,10 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
 
         randomMovieTitle.text = movie.title
         randomMovieDesc.text = "${movie.writer}, (${movie.releaseDate}), ${movie.genre}"
-        backgroundImg.setBackgroundResource(movie.posterImgLink.toInt())
+        Picasso.get().load(movie.posterImgLink)
+            .resize(800,0) //optional, Transform images to better fit into layouts and to reduce memory size.
+            .error(R.drawable.ic_launcher_background)//optional, Picasso supports both download and error placeholders as optional features
+            .into(backgroundImg) //taken image will be displayed on imgItemRecipe view.
 
         tickButton.setOnClickListener {
             randomMovieDialog.dismiss()

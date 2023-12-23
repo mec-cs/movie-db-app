@@ -3,10 +3,13 @@ package com.movie_application.view
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.movie_application.comments.CommentSys
 import com.movie_application.comments.CommentViewModel
@@ -49,6 +52,13 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         commentViewModel = ViewModelProvider(this).get(CommentViewModel::class.java)
         getData()
+
+        //deleting comments on click owner name
+        adapter.setOnItemClickListener {
+            commentViewModel.deleteComment(it)
+            Toast.makeText(this, "Your comment is deleted", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     fun setInvisibleImageView(smallImageViews: List<ImageView>) {

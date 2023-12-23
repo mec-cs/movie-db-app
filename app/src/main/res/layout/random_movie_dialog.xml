@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="350dp"
-    android:minWidth="350dp"
-    android:layout_height="200dp"
-    android:minHeight="200dp"
+    android:layout_width="400dp"
+    android:layout_height="400dp"
     android:layout_gravity="center"
     android:gravity="center"
-    app:cardElevation="8dp"
-    app:cardCornerRadius="15dp">
+    android:minWidth="350dp"
+    android:minHeight="200dp"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="8dp">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/random_dialog_movie_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/ic_launcher_foreground"
-        android:scaleType="fitXY"/>
+        android:alpha="0.70"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_launcher_foreground" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_gravity="start"
         android:layout_margin="20dp"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/random_dialog_movie_action_btn"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/ic_tick"
-            android:clickable="true"
-            android:textColor="@color/white"
-            android:focusable="true" />
+            android:textColor="@color/black"
+            app:srcCompat="@drawable/ic_tick" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/random_dialog_movie_title"
@@ -45,7 +45,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:text="movieTitle"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="movieDesc"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
