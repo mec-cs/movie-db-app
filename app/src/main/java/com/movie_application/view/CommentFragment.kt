@@ -11,8 +11,8 @@ import com.movie_application.comments.Comment
 import com.movie_application.comments.CommentSys
 import com.movie_application.comments.CommentViewModel
 import com.movie_application.databinding.FragmentCommentBinding
-import com.movie_application.recyclerView.CommentRecyclerViewAdapter
-import com.movie_application.recyclerView.MovieRecyclerViewAdapter
+import com.movie_application.adapter.CommentRecyclerViewAdapter
+import com.movie_application.adapter.MovieRecyclerViewAdapter
 
 class CommentFragment : Fragment() {
     private lateinit var binding: FragmentCommentBinding

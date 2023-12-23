@@ -62,20 +62,17 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
 
         Log.d("JSON_ARRAY_PARSE", "After Request")
 
-<<<<<<< HEAD
 
         binding.fabRandom.setOnClickListener {
             // in this line get a random movie from database and insert it into the createDialog function
             createRandomMovieDialog()
             randomMovieDialog.show()
         }
-=======
+
         binding.fabFavs.setOnClickListener {
             FavoriteMovieSys.favMovieList.addAll(movieList)
             startActivity(Intent(this, FavoriteActivity::class.java))
         }
-
->>>>>>> d80c3b5653c10c50a3ef292bc923c7fd103ac03f
 
         /*
 
