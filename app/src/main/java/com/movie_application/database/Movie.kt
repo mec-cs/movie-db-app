@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
 import com.movie_application.constants.Constants
+import java.io.Serializable
 
 @Entity(tableName = Constants.TABLE_NAME)
 class Movie
@@ -54,9 +55,23 @@ class Movie
     val response: String = "",
     @SerializedName("Images")
     val imagesList: ArrayList<String> = ArrayList()
-)
+) : Serializable
 {
+    // title, year, release date, duration, director, writer, actors, plot, languages, awards, metascore, imdbrating, imdbId, type
     override fun toString(): String {
-        return "Movie(comingSoon=$comingSoon, title='$title', year='$year', rated='$rated', releaseDate='$releaseDate', duration='$duration', genre='$genre', director='$director', writer='$writer', actors='$actors', plot='$plot', languages='$languages', countryList='$countryList', awards='$awards', posterImgLink='$posterImgLink', metascore='$metascore', imdbRating='$imdbRating', imdbVotes='$imdbVotes', imdbID='$imdbID', type='$type', response='$response', imagesList=$imagesList)"
+        return  "Title: " +title+"\n"+
+                "Year: "+year+"\n"+
+                "Duration: " +duration+"\n"+
+                "Director: " +director+"\n"+
+                "Writer: " +writer+"\n"+
+                "Actors: " +actors+"\n"+
+                "Plot: " +plot+"\n"+
+                "Languages: " +languages+"\n"+
+                "Awards: "+awards+"\n"+
+                "Metascore: " +metascore+"\n"+
+                "IMDB Rating: " +imdbRating+"\n"+
+                "IMDB Id: " +imdbID+"\n"+
+                "Type: " +type+"\n"
+
     }
 }

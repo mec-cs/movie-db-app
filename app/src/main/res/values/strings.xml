@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">MovieApp</string>
+    <string name="app_name">MoviesDatabase</string>
+    <string name="title">MOVIES</string>
+    <string name="year">Year:</string>
+    <string name="duration">Duration:</string>
+    <string name="director">Director:</string>
+    <string name="writer">Writer:</string>
+    <string name="actors">Actors:</string>
+    <string name="plot">Plot:</string>
+    <string name="languages">Languages:</string>
+    <string name="awards">Awards:</string>
+    <string name="metascore">Metascore:</string>
+    <string name="imdbRating">IMDB Rating:</string>
+    <string name="imdbId">IMDB Id:</string>
+    <string name="type">Type:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

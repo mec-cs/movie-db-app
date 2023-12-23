@@ -5,6 +5,7 @@
     android:id="@+id/moviesLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginVertical="20dp"
     android:orientation="vertical">
 
     <ImageView
@@ -17,7 +18,44 @@
         android:id="@+id/filmNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:gravity="center_horizontal|center_vertical"
         android:text="TextView"
-        android:textSize="15pt"/>
+        android:textSize="24dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="190dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:src="@android:drawable/ic_menu_search" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAddFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:src="@android:drawable/star_big_on" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:src="@android:drawable/ic_menu_edit" />
+    </LinearLayout>
 
 </LinearLayout>

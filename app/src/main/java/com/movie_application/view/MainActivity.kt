@@ -2,31 +2,29 @@ package com.movie_application.view
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.movie_application.R
 import com.movie_application.apiPackage.ApiClient
 import com.movie_application.database.Movie
 import com.movie_application.databinding.ActivityMainBinding
 import com.movie_application.service.MovieService
-import com.movie_application.recyclerView.CustomRecyclerViewAdapter
+import com.movie_application.recyclerView.MovieRecyclerViewAdapter
+import com.movie_application.soundPlayer.SoundPlayer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapterInterface {
     lateinit var movieService: MovieService
     lateinit var movieList: MutableList<Movie>
-    lateinit var adapter: CustomRecyclerViewAdapter
+    lateinit var adapter: MovieRecyclerViewAdapter
     private lateinit var binding: ActivityMainBinding
     private lateinit var randomMovieDialog: Dialog
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         var request = movieService.getMovies()
 
         binding.recyclerMovies.layoutManager = LinearLayoutManager(this)
-        adapter = CustomRecyclerViewAdapter(this)
+        adapter = MovieRecyclerViewAdapter(this)
         binding.recyclerMovies.adapter = adapter
 
         Log.d("JSON_ARRAY_PARSE", "Before Request")
@@ -79,6 +77,18 @@ class MainActivity : AppCompatActivity() {
         */
 
 
+    }
+
+    override fun displayItem(movie: Movie) {
+        val intent = Intent(this, MovieDetailsActivity::class.java)
+        intent.putExtra("selectedMovie", movie)
+        playClickSound()
+        startActivity(intent)
+    }
+
+    fun playClickSound(){
+        val soundPlayer = SoundPlayer(this)
+        soundPlayer.playSound(R.raw.soundeffect)
     }
 
     @SuppressLint("SetTextI18n")
