@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
                     movieList = (response.body() as MutableList<Movie>?)!!
                     Log.d("JSON_ARRAY_PARSE", "Recipes taken from server"+movieList.toString())
                     adapter.setData(movieList)
-                    FavoriteMovieSys.favMovieList.addAll(movieList)
+
                 } else {
                     Log.d("JSON_ARRAY_PARSE", "Recipes are not taken from server")
                 }
@@ -84,6 +84,11 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
 
         binding.fabFavs.setOnClickListener {
             startActivity(Intent(this, FavoriteActivity::class.java))
+        }
+
+        adapter.setOnItemClickListener {
+            FavoriteMovieSys.addFav(it)
+            Toast.makeText(this, "Succesfully added to fav", Toast.LENGTH_LONG).show()
         }
     }
 

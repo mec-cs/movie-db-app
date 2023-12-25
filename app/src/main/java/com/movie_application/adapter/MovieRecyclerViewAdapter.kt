@@ -9,13 +9,21 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.movie_application.database.Movie
 import com.movie_application.R
+import com.movie_application.comments.Comment
 import com.squareup.picasso.Picasso
 
 
 class MovieRecyclerViewAdapter(private val context: Context):RecyclerView.Adapter<MovieRecyclerViewAdapter.RecyclerViewItemHolder>(){
     private var recyclerItemValues = emptyList<Movie>()
+    private lateinit var onItemClickListener: (Movie) -> Unit
+
+    fun setOnItemClickListener(listener: (Movie) -> Unit) {
+        onItemClickListener = listener
+    }
+
 
     fun setData(items:MutableList<Movie>){
         recyclerItemValues = items
@@ -93,6 +101,9 @@ class MovieRecyclerViewAdapter(private val context: Context):RecyclerView.Adapte
 //            .override(400)
 //            .error(R.drawable.ic_launcher_background)
 //            .into(myRecyclerViewItemHolder.imgItemMovie)
+        myRecyclerViewItemHolder.fabAddFav.setOnClickListener(){
+            onItemClickListener.invoke(item)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -103,11 +114,12 @@ class MovieRecyclerViewAdapter(private val context: Context):RecyclerView.Adapte
         lateinit var itemLayout: LinearLayout
         lateinit var tvItemMovieName: TextView
         lateinit var imgItemMovie: ImageView
+        var fabAddFav: FloatingActionButton
         init {
             itemLayout = itemView.findViewById(R.id.moviesLayout)
             tvItemMovieName = itemView.findViewById(R.id.filmNameTextView)
             imgItemMovie = itemView.findViewById(R.id.filmPosterImageView)
-
+            fabAddFav=itemView.findViewById(R.id.fabAddFav)
         }
     }
 
