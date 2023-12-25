@@ -46,9 +46,11 @@
         android:id="@+id/fabNight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="28dp"
         android:clickable="true"
-        android:src="@drawable/baseline_brightness_3_24"
+        android:onClick="onToggleNightModeClick"
+        android:src="@drawable/baseline_night"
         app:layout_constraintStart_toEndOf="@+id/fabFavs"
         app:layout_constraintTop_toTopOf="@+id/fabFavs" />
 
@@ -56,7 +58,7 @@
         android:id="@+id/fabRandom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="36dp"
         android:clickable="true"
         android:src="@android:drawable/ic_menu_help"
         app:layout_constraintEnd_toEndOf="parent"

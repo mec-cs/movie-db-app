@@ -2,11 +2,14 @@ package com.movie_application.view
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,8 +33,17 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
     lateinit var adapter: MovieRecyclerViewAdapter
     private lateinit var binding: ActivityMainBinding
     private lateinit var randomMovieDialog: Dialog
+    private val NIGHT_MODE = "night_mode"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Restore night mode state
+        val isNightMode = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+            .getBoolean(NIGHT_MODE, false)
+        val nightMode = if (isNightMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+
+        AppCompatDelegate.setDefaultNightMode(nightMode)
+        delegate.applyDayNight()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -110,4 +122,22 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
         }
     }
 
+    fun onToggleNightModeClick(view: View) {
+        toggleNightMode()
+    }
+
+    private fun toggleNightMode() {
+        val currentNightMode = AppCompatDelegate.getDefaultNightMode()
+        val newMode = if (currentNightMode == AppCompatDelegate.MODE_NIGHT_YES) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+
+        // Save the new night mode state
+        getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+            .edit()
+            .putBoolean(NIGHT_MODE, newMode == AppCompatDelegate.MODE_NIGHT_YES)
+            .apply()
+
+        // Set and apply the new night mode
+        AppCompatDelegate.setDefaultNightMode(newMode)
+        delegate.applyDayNight()
+    }
 }
