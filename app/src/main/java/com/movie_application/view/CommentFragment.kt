@@ -11,15 +11,13 @@ import com.movie_application.comments.Comment
 import com.movie_application.comments.CommentSys
 import com.movie_application.comments.CommentViewModel
 import com.movie_application.databinding.FragmentCommentBinding
-import com.movie_application.adapter.CommentRecyclerViewAdapter
-import com.movie_application.adapter.MovieRecyclerViewAdapter
 
 class CommentFragment : Fragment() {
     private lateinit var binding: FragmentCommentBinding
     private lateinit var commentViewModel: CommentViewModel
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentCommentBinding.inflate(inflater, container, false)
-        commentViewModel = ViewModelProvider(this).get(CommentViewModel::class.java)
+        commentViewModel = ViewModelProvider(this)[CommentViewModel::class.java]
         return binding.root
     }
 
@@ -29,11 +27,10 @@ class CommentFragment : Fragment() {
             if(!binding.commentText.text.toString().isEmpty()){
                 val comment = Comment(0, binding.commentText.text.toString(), "Anonymous", CommentSys.movieName)
                 commentViewModel.addComments(comment)
-                Toast.makeText(context, "Your comment is added!!!", Toast.LENGTH_SHORT).show()
-
+                Toast.makeText(context, "Your comment is added!", Toast.LENGTH_SHORT).show()
             }
             else{
-                Toast.makeText(context, "Enter a comment!!!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Enter a comment!", Toast.LENGTH_SHORT).show()
             }
         }
 

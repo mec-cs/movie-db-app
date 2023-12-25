@@ -6,12 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.movie_application.comments.Comment
 import com.movie_application.R
-import com.movie_application.database.Movie
 
 class CommentRecyclerViewAdapter(private val context: Context): RecyclerView.Adapter<CommentRecyclerViewAdapter.RecyclerViewItemHolder>() {
     private var recyclerItemValues = emptyList<Comment>()
@@ -20,7 +17,6 @@ class CommentRecyclerViewAdapter(private val context: Context): RecyclerView.Ada
     fun setOnItemClickListener(listener: (Comment) -> Unit) {
         onItemClickListener = listener
     }
-
 
     fun setData(items:List<Comment>){
         recyclerItemValues = items
@@ -40,13 +36,6 @@ class CommentRecyclerViewAdapter(private val context: Context): RecyclerView.Ada
             onItemClickListener.invoke(item)
         }
 
-        /*
-        myRecyclerViewItemHolder.tvCommentOwner.setOnClickListener{
-            onItemClickListener.invoke(item)
-
-        }
-        */
-
     }
 
     override fun getItemCount(): Int {
@@ -54,9 +43,9 @@ class CommentRecyclerViewAdapter(private val context: Context): RecyclerView.Ada
     }
 
     inner class RecyclerViewItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        lateinit var tvComment: TextView
-        lateinit var tvCommentOwner: TextView
-        lateinit var layout: LinearLayout
+        var tvComment: TextView
+        var tvCommentOwner: TextView
+        var layout: LinearLayout
         init {
             layout=itemView.findViewById(R.id.commentLayout)
             tvComment = itemView.findViewById(R.id.commentTextView)

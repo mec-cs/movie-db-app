@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -34,10 +36,15 @@ class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var commentViewModel: CommentViewModel
     private var gDetector: GestureDetectorCompat? = null
 
-    val SIZE_FOR_SMALL_IMAGEVIEW:Int = 89
-    val SIZE_FOR_BIG_IMAGEVIEW: Int = 377
+    private val SIZE_FOR_SMALL_IMAGEVIEW:Int = 89
+    private val SIZE_FOR_BIG_IMAGEVIEW: Int = 377
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        @Suppress("DEPRECATION")
+        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
         binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -55,7 +62,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding.commentRecyclerView.adapter = adapter
 
 
-        commentViewModel = ViewModelProvider(this).get(CommentViewModel::class.java)
+        commentViewModel = ViewModelProvider(this)[CommentViewModel::class.java]
         getData()
 
         //deleting comments on click owner name
@@ -72,7 +79,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         return super.onTouchEvent(event)
     }
 
-    fun setInvisibleImageView(smallImageViews: List<ImageView>) {
+    private fun setInvisibleImageView(smallImageViews: List<ImageView>) {
         smallImageViews.forEach {
             it.visibility = View.INVISIBLE
         }
@@ -94,7 +101,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
     }
 
-    fun swapImage(position:Int) {
+    private fun swapImage(position:Int) {
         var temp = selectedMovie.imagesList[position].toString()
         selectedMovie.imagesList[position] = selectedMovie.imagesList[0].toString()
         selectedMovie.imagesList[0] = temp
@@ -103,14 +110,14 @@ class MovieDetailsActivity : AppCompatActivity() {
         setImageView(smallImageViews[0], selectedMovie.imagesList[0], SIZE_FOR_BIG_IMAGEVIEW)
     }
 
-    fun setImageView(imageview:ImageView, imgLink:String, size:Int){
+    private fun setImageView(imageview:ImageView, imgLink:String, size:Int){
         Glide.with(this)
             .load(imgLink)
             .override(size)
             .error(R.drawable.ic_launcher_background)
             .into(imageview)
     }
-    fun getData() {
+    private fun getData() {
         //Whenever data is changed that change will refresh the recyclerview
         commentViewModel.readAllData.observe(this, Observer { comments ->
             //comments = commentViewModel.searchComment(selectedMovie.title)

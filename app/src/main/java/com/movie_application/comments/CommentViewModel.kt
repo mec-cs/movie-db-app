@@ -7,9 +7,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-/*
-it provides data to the UI and survive configuration changes. It acts as a communication center between repository and the UI
- */
 class CommentViewModel(application:Application):AndroidViewModel(application) {
     val readAllData: LiveData<List<Comment>>
 

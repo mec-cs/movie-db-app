@@ -1,10 +1,12 @@
 package com.movie_application.database
 
-import android.widget.Toast
-
 object FavoriteMovieSys {
         var favMovieList: MutableList<Movie> = mutableListOf<Movie>()
-        fun addFav(movie: Movie){
-                favMovieList.add(movie)
+        fun addFav(movie: Movie): Boolean {
+                if (!favMovieList.contains(movie)) {
+                        favMovieList.add(movie)
+                        return true
+                }
+                return false
         }
 }

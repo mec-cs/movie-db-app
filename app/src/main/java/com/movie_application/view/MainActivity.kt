@@ -8,10 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movie_application.R
 import com.movie_application.apiPackage.ApiClient
@@ -20,6 +24,7 @@ import com.movie_application.databinding.ActivityMainBinding
 import com.movie_application.service.MovieService
 import com.movie_application.adapter.MovieRecyclerViewAdapter
 import com.movie_application.database.FavoriteMovieSys
+import com.movie_application.database.MovieViewModel
 import com.movie_application.soundPlayer.SoundPlayer
 import com.squareup.picasso.Picasso
 import retrofit2.Call
@@ -31,6 +36,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
     lateinit var movieService: MovieService
     lateinit var movieList: MutableList<Movie>
     lateinit var adapter: MovieRecyclerViewAdapter
+    lateinit var movieViewModel: MovieViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var randomMovieDialog: Dialog
     private val NIGHT_MODE = "night_mode"
@@ -41,6 +47,10 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
         val isNightMode = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
             .getBoolean(NIGHT_MODE, false)
         val nightMode = if (isNightMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        @Suppress("DEPRECATION")
+        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         AppCompatDelegate.setDefaultNightMode(nightMode)
         delegate.applyDayNight()
@@ -55,6 +65,8 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
         adapter = MovieRecyclerViewAdapter(this)
         binding.recyclerMovies.adapter = adapter
 
+        movieViewModel = ViewModelProvider(this)[MovieViewModel::class.java]
+
         Log.d("JSON_ARRAY_PARSE", "Before Request")
         request.enqueue(object : Callback<List<Movie>> {
             override fun onFailure(call: Call<List<Movie>>, t: Throwable) {
@@ -65,8 +77,10 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
                 if (response.isSuccessful) {
                     movieList = (response.body() as MutableList<Movie>?)!!
                     Log.d("JSON_ARRAY_PARSE", "Recipes taken from server"+movieList.toString())
-                    adapter.setData(movieList)
-
+                    movieViewModel.addMovies(movieList)
+                    movieViewModel.readAllData.observe (this@MainActivity, Observer { movies ->
+                        adapter.setData(movies)
+                    })
                 } else {
                     Log.d("JSON_ARRAY_PARSE", "Recipes are not taken from server")
                 }
@@ -75,20 +89,25 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
 
         Log.d("JSON_ARRAY_PARSE", "After Request")
 
-
         binding.fabRandom.setOnClickListener {
             // in this line get a random movie from database and insert it into the createDialog function
+            playClickSound()
             createRandomMovieDialog()
             randomMovieDialog.show()
         }
 
         binding.fabFavs.setOnClickListener {
+            playClickSound()
             startActivity(Intent(this, FavoriteActivity::class.java))
         }
 
         adapter.setOnItemClickListener {
-            FavoriteMovieSys.addFav(it)
-            Toast.makeText(this, "Succesfully added to fav", Toast.LENGTH_LONG).show()
+            val flag = FavoriteMovieSys.addFav(it)
+            if (flag) {
+                Toast.makeText(this, "Succesfully ADDED to your favorites", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "It is ALREADY in your favorites", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -99,7 +118,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
         startActivity(intent)
     }
 
-    fun playClickSound(){
+    private fun playClickSound(){
         val soundPlayer = SoundPlayer(this)
         soundPlayer.playSound(R.raw.soundeffect)
     }

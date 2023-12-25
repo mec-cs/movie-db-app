@@ -14,24 +14,18 @@ class CommentRepository(private val commentDAO: CommentDAO) {
     fun insertComments(comments:ArrayList<Comment>){
         commentDAO.insertAllComment(comments)
     }
-
-
     fun updateComment(comment: Comment){
         commentDAO.updateComment(comment)
     }
-
     fun deleteComment(comment: Comment){
         commentDAO.deleteComment(comment)
     }
-
     fun deleteAllComments(){
         commentDAO.deleteAllComments()
     }
-
     fun getAllComments():LiveData<List<Comment>>{
         return commentDAO.getAllComments()
     }
-
     fun getCommentById(id:Int): Comment {
         return commentDAO.getCommentById(id)
     }

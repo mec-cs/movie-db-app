@@ -15,9 +15,7 @@ import com.movie_application.converter.Converters
 )
 @TypeConverters(Converters::class)
 abstract class MovieRoomDatabase: RoomDatabase() {
-
     abstract fun movieDao(): MovieDAO
-
     companion object{
         @Volatile  //it makes that instance to visible to other threads
         private var INSTANCE:MovieRoomDatabase?=null
