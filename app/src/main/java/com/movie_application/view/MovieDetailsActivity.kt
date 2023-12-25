@@ -1,10 +1,14 @@
 package com.movie_application.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GestureDetectorCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -17,6 +21,7 @@ import com.movie_application.database.Movie
 import com.movie_application.R
 import com.movie_application.adapter.CommentRecyclerViewAdapter
 import com.movie_application.databinding.ActivityMovieDetailsBinding
+import kotlin.math.abs
 
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -27,7 +32,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     lateinit var adapter: CommentRecyclerViewAdapter
 
     private lateinit var commentViewModel: CommentViewModel
-
+    private var gDetector: GestureDetectorCompat? = null
 
     val SIZE_FOR_SMALL_IMAGEVIEW:Int = 89
     val SIZE_FOR_BIG_IMAGEVIEW: Int = 377
@@ -59,6 +64,12 @@ class MovieDetailsActivity : AppCompatActivity() {
             Toast.makeText(this, "Your comment is deleted", Toast.LENGTH_SHORT).show()
         }
 
+        gDetector =  GestureDetectorCompat(this, CustomGesture())
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        gDetector?.onTouchEvent(event)
+        return super.onTouchEvent(event)
     }
 
     fun setInvisibleImageView(smallImageViews: List<ImageView>) {
@@ -107,5 +118,18 @@ class MovieDetailsActivity : AppCompatActivity() {
         })
     }
 
+    inner class CustomGesture: GestureDetector.SimpleOnGestureListener() {
+        override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+            val distanceX = e2.x - e1!!.x
+            val distanceY = e2.y - e1!!.y
+            if (abs(distanceX) > abs(distanceY) && abs(distanceX) > 100 && abs(velocityX) > 100)
+                if (distanceX > 0) {
+                    val intent = Intent(this@MovieDetailsActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    return true
+                }
+            return false
+        }
+    }
 }
 

@@ -14,7 +14,7 @@
         android:id="@+id/random_dialog_movie_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.70"
+        android:alpha="0.5"
         android:scaleType="fitXY"
         android:src="@drawable/ic_launcher_foreground" />
 
@@ -47,17 +47,20 @@
             android:text="movieTitle"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:fontFamily="monospace" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/random_dialog_movie_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:singleLine="false"
             android:text="movieDesc"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:fontFamily="serif-monospace" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

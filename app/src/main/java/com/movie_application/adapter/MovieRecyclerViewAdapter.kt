@@ -49,6 +49,7 @@ class MovieRecyclerViewAdapter(private val context: Context):RecyclerView.Adapte
         adapterInterface = context as RecyclerAdapterInterface // with that statement activities which will use the adapter are foreced to implement the interface
 
     }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerViewItemHolder {
         val inflator = LayoutInflater.from(viewGroup.context)
         val itemView: View = inflator.inflate(R.layout.movies_recycler_layout, viewGroup, false)

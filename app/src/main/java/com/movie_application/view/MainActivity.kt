@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
                     movieList = (response.body() as MutableList<Movie>?)!!
                     Log.d("JSON_ARRAY_PARSE", "Recipes taken from server"+movieList.toString())
                     adapter.setData(movieList)
+                    FavoriteMovieSys.favMovieList.addAll(movieList)
                 } else {
                     Log.d("JSON_ARRAY_PARSE", "Recipes are not taken from server")
                 }
@@ -70,25 +71,8 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
         }
 
         binding.fabFavs.setOnClickListener {
-            FavoriteMovieSys.favMovieList.addAll(movieList)
             startActivity(Intent(this, FavoriteActivity::class.java))
         }
-
-        /*
-
-        // random dialog layout : partly complete
-        // random movie from database : None
-        // !! image size should be 1280-720
-
-        binding.randomMovieButton.setOnClickListener {
-            // in this line get a random movie from database and insert it into the createDialog function
-            createRandomMovieDialog(Movie(title = "Test Title", writer = "MenesCakir", releaseDate = "2020", genre = "Comedy", posterImgLink = R.drawable.ic_launcher_background.toString()))
-            randomMovieDialog.show()
-        }
-
-        */
-
-
     }
 
     override fun displayItem(movie: Movie) {
@@ -105,8 +89,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
 
     @SuppressLint("SetTextI18n")
     fun createRandomMovieDialog() {
-        var movie: Movie
-        movie= movieList[Random.nextInt(0,movieList.size+1)]
+        val movie: Movie = movieList[Random.nextInt(0,movieList.size)]
         randomMovieDialog = Dialog(this)
         randomMovieDialog.setContentView(R.layout.random_movie_dialog)
 
@@ -116,7 +99,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
         val backgroundImg = randomMovieDialog.findViewById<AppCompatImageView>(R.id.random_dialog_movie_image)
 
         randomMovieTitle.text = movie.title
-        randomMovieDesc.text = "${movie.writer}, (${movie.releaseDate}), ${movie.genre}"
+        randomMovieDesc.text = "${movie.releaseDate}, ${movie.genre}"
         Picasso.get().load(movie.posterImgLink)
             .resize(800,0) //optional, Transform images to better fit into layouts and to reduce memory size.
             .error(R.drawable.ic_launcher_background)//optional, Picasso supports both download and error placeholders as optional features
