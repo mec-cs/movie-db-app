@@ -14,7 +14,7 @@
         android:id="@+id/random_dialog_movie_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.5"
+        android:alpha="0.7"
         android:scaleType="fitXY"
         android:src="@drawable/ic_launcher_foreground" />
 
@@ -26,41 +26,45 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/random_dialog_movie_action_btn"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:textColor="@color/black"
-            app:srcCompat="@drawable/ic_tick" />
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/random_dialog_movie_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:shadowColor="#FFFFFF"
+            android:shadowRadius="15"
             android:text="movieTitle"
-            android:textColor="@color/black"
+            android:textColor="@color/material_dynamic_neutral30"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:fontFamily="monospace" />
+            app:fontFamily="casual" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/random_dialog_movie_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:shadowColor="#FFFFFF"
+            android:shadowRadius="15"
             android:singleLine="false"
             android:text="movieDesc"
-            android:textColor="@color/black"
+            android:textColor="@color/material_dynamic_neutral70"
             android:textSize="20sp"
             android:textStyle="bold"
             app:fontFamily="serif-monospace" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/random_dialog_movie_action_btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="200dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="bottom|center"
+            android:orientation="horizontal"
+            android:textColor="@color/black"
+            app:srcCompat="@drawable/ic_tick" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
