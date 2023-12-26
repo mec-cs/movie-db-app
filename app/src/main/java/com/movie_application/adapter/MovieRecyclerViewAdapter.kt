@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.movie_application.database.Movie
 import com.movie_application.R
 import com.squareup.picasso.Picasso
@@ -35,8 +36,7 @@ class MovieRecyclerViewAdapter(private val context: Context):RecyclerView.Adapte
     private var adapterInterface: RecyclerAdapterInterface
 
     init{
-        adapterInterface = context as RecyclerAdapterInterface // with that statement activities which will use the adapter are foreced to implement the interface
-
+        adapterInterface = context as RecyclerAdapterInterface
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerViewItemHolder {
@@ -46,26 +46,28 @@ class MovieRecyclerViewAdapter(private val context: Context):RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(myRecyclerViewItemHolder: RecyclerViewItemHolder, position: Int) {
-        val item = recyclerItemValues[position]
-        myRecyclerViewItemHolder.tvItemMovieName.text = item.title
+        val movie = recyclerItemValues[position]
+        myRecyclerViewItemHolder.tvItemMovieName.text = movie.title
 
-        val imgUrlAddress = item.posterImgLink
+        val imgUrlAddress = movie.posterImgLink
         Log.d("IMG URL", imgUrlAddress)
 
-        myRecyclerViewItemHolder.itemLayout.setOnClickListener{
-            adapterInterface.displayItem(item)
+        myRecyclerViewItemHolder.itemLayout.setOnClickListener {
+            Snackbar.make(it, "Long click to movie or click more button to see", Snackbar.LENGTH_SHORT).show()
         }
+        myRecyclerViewItemHolder.itemLayout.setOnLongClickListener{
+            adapterInterface.displayItem(movie)
+            return@setOnLongClickListener true
+        }
+        myRecyclerViewItemHolder.fabMoreBtn.setOnClickListener {
+            adapterInterface.displayItem(movie)
+        }
+
 
         Picasso.get().load(imgUrlAddress)
             .resize(800,0) //optional, Transform images to better fit into layouts and to reduce memory size.
-            .error(R.drawable.ic_launcher_background)//optional, Picasso supports both download and error placeholders as optional features
-            .into(myRecyclerViewItemHolder.imgItemMovie) //taken image will be displayed on imgItemRecipe view.
-
-        /*
-        Picaso uses its own thread  to send request to server and get the response
-        If you write statements after picasso, all these statements will be executed by main UI thread.
-        It will not wait for the result of picasso
-         */
+            .error(R.drawable.ic_launcher_background)
+            .into(myRecyclerViewItemHolder.imgItemMovie)
 
         /*
         Glide is a popular image loading and caching library for Android applications written in Kotlin.
@@ -79,7 +81,7 @@ class MovieRecyclerViewAdapter(private val context: Context):RecyclerView.Adapte
 //            .into(myRecyclerViewItemHolder.imgItemMovie)
 
         myRecyclerViewItemHolder.fabAddFav.setOnClickListener {
-            onItemClickListener.invoke(item)
+            onItemClickListener.invoke(movie)
         }
     }
 
@@ -92,11 +94,13 @@ class MovieRecyclerViewAdapter(private val context: Context):RecyclerView.Adapte
         var tvItemMovieName: TextView
         var imgItemMovie: ImageView
         var fabAddFav: FloatingActionButton
+        var fabMoreBtn: FloatingActionButton
         init {
             itemLayout = itemView.findViewById(R.id.moviesLayout)
             tvItemMovieName = itemView.findViewById(R.id.filmNameTextView)
             imgItemMovie = itemView.findViewById(R.id.filmPosterImageView)
             fabAddFav = itemView.findViewById(R.id.fabAddFav)
+            fabMoreBtn = itemView.findViewById(R.id.fabMore)
         }
     }
 

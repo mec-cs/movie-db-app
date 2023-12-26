@@ -38,7 +38,14 @@
     <TextView
         android:id="@+id/favMovieDetailsTv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="60dp" />
+        android:layout_height="360dp"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:id="@+id/btnStartService"
+        style="@android:style/Widget.Material.Button.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/startService" />
 
 </LinearLayout>

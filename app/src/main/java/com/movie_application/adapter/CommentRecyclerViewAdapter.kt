@@ -29,11 +29,11 @@ class CommentRecyclerViewAdapter(private val context: Context): RecyclerView.Ada
         return RecyclerViewItemHolder(itemView)
     }
     override fun onBindViewHolder(myRecyclerViewItemHolder: RecyclerViewItemHolder, position: Int) {
-        val item = recyclerItemValues[position]
-        myRecyclerViewItemHolder.tvCommentOwner.text = item.owner
-        myRecyclerViewItemHolder.tvComment.text = item.comment
+        val cmnt = recyclerItemValues[position]
+        myRecyclerViewItemHolder.tvCommentOwner.text = cmnt.owner
+        myRecyclerViewItemHolder.tvComment.text = cmnt.comment
         myRecyclerViewItemHolder.layout.setOnClickListener(){
-            onItemClickListener.invoke(item)
+            onItemClickListener.invoke(cmnt)
         }
 
     }

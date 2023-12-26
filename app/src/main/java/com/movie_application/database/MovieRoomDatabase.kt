@@ -30,6 +30,7 @@ abstract class MovieRoomDatabase: RoomDatabase() {
             everthing in this block protected from concurrent execution by multiple threads.In this block database instance is created
             same database instance will be used. If many instance are used, it will be so expensive
              */
+
             synchronized(this){
                 val  instance = Room.databaseBuilder(context.applicationContext, MovieRoomDatabase::class.java, Constants.DATABASE_NAME).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
