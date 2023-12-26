@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
     private lateinit var binding: ActivityMainBinding
     private lateinit var randomMovieDialog: Dialog
     private val NIGHT_MODE = "night_mode"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Restore night mode state
