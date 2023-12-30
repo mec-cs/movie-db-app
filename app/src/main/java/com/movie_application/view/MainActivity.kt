@@ -33,10 +33,10 @@ import retrofit2.Response
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapterInterface {
-    lateinit var movieService: MovieService
-    lateinit var movieList: MutableList<Movie>
-    lateinit var adapter: MovieRecyclerViewAdapter
-    lateinit var movieViewModel: MovieViewModel
+    private lateinit var movieService: MovieService
+    private lateinit var movieList: MutableList<Movie>
+    private lateinit var adapter: MovieRecyclerViewAdapter
+    private lateinit var movieViewModel: MovieViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var randomMovieDialog: Dialog
     private val NIGHT_MODE = "night_mode"
