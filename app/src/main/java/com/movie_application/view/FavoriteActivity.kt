@@ -39,7 +39,6 @@ class FavoriteActivity : AppCompatActivity(), FavMovieRecyclerViewAdapter.FavRec
     var gDetector: GestureDetectorCompat? = null
     lateinit var workManager: WorkManager
     lateinit var workRequest: OneTimeWorkRequest
-    lateinit var customWorker: CustomWorker
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
