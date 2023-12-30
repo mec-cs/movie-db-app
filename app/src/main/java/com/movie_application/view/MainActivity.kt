@@ -75,13 +75,13 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
                 Log.d("JSON_ARRAY_PARSE", "Response taken")
                 if (response.isSuccessful) {
                     movieList = (response.body() as MutableList<Movie>?)!!
-                    Log.d("JSON_ARRAY_PARSE", "Recipes taken from server"+movieList.toString())
+                    Log.d("JSON_ARRAY_PARSE", "Movies taken from server"+movieList.toString())
                     movieViewModel.addMovies(movieList)
                     movieViewModel.readAllData.observe (this@MainActivity, Observer { movies ->
                         adapter.setData(movies)
                     })
                 } else {
-                    Log.d("JSON_ARRAY_PARSE", "Recipes are not taken from server")
+                    Log.d("JSON_ARRAY_PARSE", "Movies are not taken from server")
                 }
             }
         })
@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.RecyclerAdapt
         Picasso.get().load(movie.posterImgLink)
             .resize(800,0) //optional, Transform images to better fit into layouts and to reduce memory size.
             .error(R.drawable.ic_launcher_background)//optional, Picasso supports both download and error placeholders as optional features
-            .into(backgroundImg) //taken image will be displayed on imgItemRecipe view.
+            .into(backgroundImg)
 
         tickButton.setOnClickListener {
             randomMovieDialog.dismiss()
