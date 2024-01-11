@@ -6,7 +6,7 @@ Also, users can create a favorite movies list.
 If you are an indecisive user, you can click on the question mark. It will select a random movie to watch for you :).
 
 # Features
-- <b>Keyword:</b> Customized Recycler Views, Sound File, Fragment, Customized Gesture, Picaso & Glide Libraries, Material UI, Retrofit, Gson, Custom Work Manager to handle background operations, Notification
+- <b>Keyword:</b> MVVM (Model View View Model) architecture, Live Data, Observer, Customized Recycler View Adapter, Sound File, Fragment, Customized Gesture, Picaso & Glide Libraries, Material UI, Retrofit, Gson, Custom Work Manager to handle background operations, Notification
 - Written in Kotlin
 - IDE : Android Studio
 
